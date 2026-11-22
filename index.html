@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#121210">
+  <meta name="description" content="LOIKZ ASSET — a marketplace for game-ready 3D models, animations, scripts, sounds and tools made by creators.">
+  <title>LOIKZ ASSET — Digital Asset Marketplace</title>
+  <style>
+/* =====================================================================
+   LOIKZ ASSET — stylesheet
+   Type: Space Grotesk (display/data) + Inter (body)
+   Palette: warm paper / warm ink + one deliberate signal-blue accent
+   Theme: light (default) and dark, toggled via [data-theme] on <html>
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#F6F4EC;
+  --surface:#FFFFFF;
+  --surface-sunken:#EFEDE3;
+  --ink:#16150F;
+  --ink-soft:#5C5948;
+  --ink-faint:#8C8873;
+  --line:#E2DECE;
+  --accent:#2740E6;
+  --accent-ink:#FFFFFF;
+  --danger:#B3261E;
+  --radius-s:3px;
+  --radius-m:5px;
+  --hero-bg:#121210;
+  --hero-ink:#F3F1E6;
+  --hero-ink-soft:#9E9A89;
+  --hero-line:#33312A;
+  --font-display:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --font-body:'Inter',ui-sans-serif,system-ui,sans-serif;
+  --shadow-float:0 16px 40px rgba(20,19,10,.16);
+}
+html[data-theme="dark"]{
+  --bg:#141310;
+  --surface:#1C1B16;
+  --surface-sunken:#101009;
+  --ink:#F3F1E6;
+  --ink-soft:#AFAB99;
+  --ink-faint:#716D5C;
+  --line:#322F26;
+  --accent:#6F82FF;
+  --accent-ink:#0E0D09;
+  --shadow-float:0 16px 40px rgba(0,0,0,.5);
+}
+
+/* ---------- reset & base ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5;transition:background .25s,color .25s}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;margin:0}
+.hidden{display:none!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* ---------- shared bits ---------- */
+.button{border:1px solid var(--ink);padding:13px 20px;font-weight:600;font-size:13px;border-radius:var(--radius-s);background:transparent;color:var(--ink);transition:background .15s,color .15s,border-color .15s}
+.button-dark{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.button-dark:hover{opacity:.85}
+.button-light{background:var(--hero-ink);color:var(--hero-bg);border-color:var(--hero-ink)}
+.button-light:hover{opacity:.85}
+.button-outline{background:transparent;color:var(--hero-ink);border-color:var(--hero-line)}
+.button-outline:hover{border-color:var(--hero-ink)}
+.button.full{width:100%}
+.text-link,.back-link,.nav-link{border:0;background:none;color:var(--ink-soft);padding:0;font-size:13px;font-weight:500}
+.text-link:hover,.nav-link:hover,.nav-link.active{color:var(--ink)}
+.nav-link.active{text-decoration:underline;text-underline-offset:5px}
+.back-link{display:inline-block;margin:30px 8% 0}
+.icon-btn{border:0;background:none;font-size:17px;color:var(--ink);display:inline-flex;align-items:center;gap:5px;padding:6px}
+.icon-btn span{font:11px var(--font-display);color:var(--ink-soft)}
+
+/* ---------- header ---------- */
+.topbar{height:72px;padding:0 5.5%;display:flex;align-items:center;justify-content:space-between;background:var(--bg);background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-size:16px;font-weight:700}
+.brand b{font-weight:400;color:var(--ink-soft)}
+.brand-mark{width:28px;height:28px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:15px;font-weight:700;border-radius:var(--radius-s)}
+.desktop-nav{display:flex;gap:28px;margin-left:60px}
+.header-actions{display:flex;align-items:center;gap:6px}
+.mobile-menu{display:none;background:none;border:0;font-size:20px;color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--hero-bg);color:var(--hero-ink);min-height:560px;padding:76px 8% 50px;display:grid;grid-template-columns:1.05fr .95fr;gap:6%;align-items:center;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--hero-line) 1px,transparent 1px),linear-gradient(90deg,var(--hero-line) 1px,transparent 1px);background-size:56px 56px;opacity:.35;mask-image:radial-gradient(ellipse at 30% 30%,#000 10%,transparent 70%)}
+.hero-copy{position:relative}
+.hero-kicker{color:var(--hero-ink-soft);font-size:13px;margin:0 0 18px;max-width:320px}
+.hero h1{font-size:clamp(40px,5.4vw,66px);line-height:1.04;letter-spacing:-1.5px;margin-bottom:20px}
+.hero-sub{color:var(--hero-ink-soft);line-height:1.7;max-width:440px;font-size:15px;margin:0}
+.hero-actions{display:flex;gap:10px;margin:28px 0 48px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:34px;border-top:1px solid var(--hero-line);padding-top:20px;margin:0}
+.hero-stats div{display:flex;flex-direction:column;gap:5px}
+.hero-stats dt{font-family:var(--font-display);font-size:15px;margin:0}
+.hero-stats dd{font-size:12px;color:var(--hero-ink-soft);margin:0}
+.hero-art{position:relative;border:1px solid var(--hero-line);padding:16px;border-radius:var(--radius-m)}
+.art-grid{height:300px;display:grid;grid-template-columns:1.2fr .8fr;grid-template-rows:1fr .8fr;gap:8px}
+.art-tile{background:#1B1A16;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:13px;font-size:11px;letter-spacing:.2px;color:var(--hero-ink-soft);border-radius:var(--radius-s)}
+.art-tile span{position:relative;z-index:2}
+.art-main{grid-row:span 2}
+.art-side{background:#232019}
+.art-bottom{background:#1E1C17}
+.wire-cube{width:150px;height:150px;border:1px solid var(--hero-ink-soft);position:absolute;top:36px;left:50%;transform:translateX(-50%) rotate(35deg) skew(-8deg)}
+.wire-cube:before,.wire-cube:after{content:"";position:absolute;inset:24px;border:1px solid var(--accent);transform:rotate(45deg)}
+.wire-sphere{position:absolute;width:88px;height:88px;border:1px solid var(--hero-ink-soft);border-radius:50%;top:22px;left:calc(50% - 44px);box-shadow:inset 16px 0 0 -15px var(--hero-ink-soft),inset -16px 0 0 -15px var(--hero-ink-soft)}
+.wire-ring{position:absolute;width:122px;height:46px;border:1px solid var(--accent);border-radius:50%;top:26px;left:calc(50% - 61px);transform:rotate(-25deg)}
+
+/* ---------- sections ---------- */
+.section-pad{padding:72px 8%}
+.section-heading{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;gap:20px}
+.section-heading h2{font-size:30px;letter-spacing:-.8px}
+.category-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.category-card{background:var(--surface);border:1px solid var(--line);padding:18px 15px;min-height:112px;text-align:left;border-radius:var(--radius-m);transition:border-color .15s,color .15s}
+.category-card:hover{border-color:var(--ink)}
+.category-card .cat-icon{font-size:20px;display:block;margin-bottom:16px;color:var(--accent)}
+.category-card b{font-size:13px;font-weight:600}
+.category-card small{display:block;color:var(--ink-faint);font-size:11px;margin-top:5px}
+.feature-strip{background:var(--surface-sunken);display:flex;align-items:center;justify-content:space-between;gap:35px;border-radius:var(--radius-m);margin:0 8%;width:auto;padding:56px 6%}
+.feature-strip-copy h2{font-size:28px;letter-spacing:-.6px;margin-bottom:12px}
+.feature-strip-copy p{max-width:380px;line-height:1.7;color:var(--ink-soft);margin:0}
+.feature-strip .button{white-space:nowrap}
+
+/* ---------- product grid & cards ---------- */
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.product-grid-scroll{display:flex;overflow-x:auto;gap:14px;padding-bottom:6px}
+.product-grid-scroll .product-card{min-width:230px}
+.product-card{background:var(--surface);border:1px solid var(--line);min-width:0;cursor:pointer;border-radius:var(--radius-m);position:relative;overflow:hidden;transition:border-color .15s}
+.product-card:hover{border-color:var(--ink)}
+.product-image{height:182px;background:var(--surface-sunken);position:relative;overflow:hidden;display:grid;place-items:center}
+.product-image img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.product-card:hover .product-image img{transform:scale(1.04)}
+.image-placeholder{font-size:48px;color:var(--ink-faint)}
+.price-tag{position:absolute;left:10px;top:10px;background:var(--surface);padding:6px 9px;font:12px var(--font-display);border-radius:var(--radius-s)}
+.badge-tag{position:absolute;left:10px;bottom:10px;background:var(--accent);color:var(--accent-ink);padding:4px 8px;font-size:10px;font-weight:600;letter-spacing:.3px;border-radius:var(--radius-s)}
+.favorite-btn{position:absolute;right:10px;top:10px;background:var(--surface);border:0;width:30px;height:30px;font-size:16px;border-radius:var(--radius-s)}
+.favorite-btn.saved{background:var(--ink);color:var(--bg)}
+.cart-add-btn{position:absolute;right:10px;bottom:10px;background:var(--ink);color:var(--bg);border:0;width:30px;height:30px;font-size:16px;border-radius:var(--radius-s);line-height:1}
+.product-info{padding:14px}
+.product-category{font-size:11px;color:var(--ink-faint)}
+.product-info h3{font-size:14.5px;margin:7px 0 5px;font-weight:600}
+.product-meta{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:11px;gap:8px}
+.product-meta .creator-link{border:0;background:none;padding:0;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;font-size:11px}
+.product-meta .creator-link:hover{color:var(--ink)}
+.rating-line{font-size:11px;color:var(--ink-soft);display:flex;align-items:center;gap:4px;margin-top:6px}
+.rating-line .stars{color:var(--accent);letter-spacing:1px}
+.product-bottom{border-top:1px solid var(--line);margin-top:12px;padding-top:11px;display:flex;justify-content:space-between;align-items:center}
+.product-price{font-family:var(--font-display);font-weight:600}
+.view-link{font-size:11px;color:var(--ink-faint)}
+
+/* ---------- manage listing controls ---------- */
+.manage-card{position:relative}
+.manage-actions{display:flex;gap:8px;padding:0 14px 14px}
+.manage-actions button{flex:1;border:1px solid var(--line);background:var(--surface);padding:8px;font-size:11px;font-weight:600;border-radius:var(--radius-s)}
+.manage-actions .danger{color:var(--danger);border-color:var(--danger)}
+
+/* ---------- page heading / store toolbar ---------- */
+.page-heading{padding:72px 8% 34px;background:var(--surface-sunken)}
+.page-heading h1{font-size:52px;letter-spacing:-1.4px;margin-bottom:14px;line-height:1.05}
+.page-heading p{color:var(--ink-soft);line-height:1.6;margin:0}
+.store-toolbar{padding:24px 8% 0;display:flex;gap:10px;flex-wrap:wrap}
+.store-toolbar-secondary{padding-top:10px;padding-bottom:4px}
+.range-field{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)}
+.range-field input{width:90px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.searchbox{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);padding:0 13px;flex:1;min-width:200px;border-radius:var(--radius-s);position:relative}
+.searchbox span{font-size:20px;color:var(--ink-faint)}
+.searchbox input{border:0;outline:0;width:100%;height:44px;background:transparent}
+.search-suggestions{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);box-shadow:var(--shadow-float);z-index:30;overflow:hidden}
+.search-suggestions button{display:block;width:100%;text-align:left;padding:11px 14px;border:0;background:none;font-size:13px;border-bottom:1px solid var(--line)}
+.search-suggestions button:last-child{border-bottom:0}
+.search-suggestions button:hover{background:var(--surface-sunken)}
+.search-suggestions button small{display:block;color:var(--ink-faint);font-size:11px;margin-top:2px}
+.store-toolbar select{background:var(--surface);border:1px solid var(--line);padding:0 12px;min-width:140px;border-radius:var(--radius-s);height:44px}
+.results-line{padding:14px 8% 20px;display:flex;justify-content:space-between;color:var(--ink-soft);font-size:12px}
+#storeProducts,#freeProducts,#favoriteProducts,#libraryProducts,#homeProducts,#myListings,#recentHomeProducts{margin:0 8% 72px}
+.recent-strip #recentHomeProducts{margin-bottom:0}
+.empty-state{text-align:center;padding:70px 20px}
+.empty-icon{font-size:36px;color:var(--ink-faint)}
+.empty-state h3{font-size:20px;margin:10px 0 6px}
+.empty-state p{color:var(--ink-soft);margin:0}
+
+/* ---------- creators / upload ---------- */
+.creator-layout{padding:40px 8% 60px;display:grid;grid-template-columns:.8fr 1.2fr;gap:9%;align-items:start}
+.creator-icon{width:48px;height:48px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:22px;border-radius:var(--radius-s);margin-bottom:18px}
+.creator-info h2{font-size:30px;letter-spacing:-.8px;line-height:1.1;margin-bottom:14px}
+.creator-info p,.creator-info li{color:var(--ink-soft);line-height:1.7}
+.creator-info ul{padding-left:18px;margin-top:16px}
+.upload-card{background:var(--surface);border:1px solid var(--line);padding:26px;border-radius:var(--radius-m)}
+.form-title{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:18px}
+.form-title h2{margin:0;font-size:20px}
+.field-note{font-size:11px;color:var(--ink-faint);line-height:1.6;margin:0 0 18px}
+.upload-card label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600;margin-bottom:15px}
+.upload-card input,.upload-card select,.upload-card textarea{width:100%;border:1px solid var(--line);background:var(--surface-sunken);padding:11px;outline:none;font-weight:400;font-size:13px;border-radius:var(--radius-s)}
+.upload-card input:focus,.upload-card textarea:focus,.upload-card select:focus{border-color:var(--ink)}
+.upload-card input[type=file]{padding:9px}
+.form-row{display:grid;grid-template-columns:.6fr 1.4fr;gap:12px}
+.form-actions{display:flex;gap:10px}
+.form-message{font-size:12px;margin-top:12px;color:var(--ink-soft)}
+.my-listings{padding:16px 0 20px}
+.my-listings .section-heading{padding:0 8%}
+.my-listings .product-grid{margin-top:0}
+
+/* ---------- creator profile ---------- */
+.creator-profile-head{margin:0 8% 36px;display:flex;gap:22px;align-items:center}
+.creator-avatar{width:68px;height:68px;border-radius:var(--radius-m);background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--font-display);font-size:26px;flex-shrink:0}
+.creator-profile-head h1{font-size:34px;letter-spacing:-.8px;margin-bottom:8px}
+.creator-profile-head p{color:var(--ink-soft);margin:0;line-height:1.6;max-width:560px}
+.creator-stats{display:flex;gap:22px;margin:0 8% 32px;color:var(--ink-soft);font-size:13px}
+.creator-stats b{color:var(--ink);font-family:var(--font-display)}
+
+/* ---------- detail page ---------- */
+.detail-layout{margin:0 8% 60px;display:grid;grid-template-columns:1.1fr .9fr;gap:7%}
+.detail-preview{background:var(--surface-sunken);min-height:380px;display:grid;place-items:center;overflow:hidden;border-radius:var(--radius-m)}
+.detail-preview img{width:100%;height:100%;max-height:560px;object-fit:cover}
+.detail-preview .image-placeholder{font-size:90px}
+.detail-copy{padding:16px 0}
+.detail-copy .eyebrow{color:var(--ink-faint);font-size:12px;margin-bottom:10px}
+.detail-copy h1{font-size:38px;letter-spacing:-1.2px;margin:0 0 12px}
+.detail-copy p{color:var(--ink-soft);line-height:1.7}
+.detail-price{font-family:var(--font-display);font-size:26px;font-weight:600;margin:22px 0}
+.detail-actions{display:flex;gap:9px;flex-wrap:wrap}
+.detail-actions .button{flex:1;min-width:140px}
+.detail-facts{border-top:1px solid var(--line);margin-top:28px;padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.detail-facts span{display:block;font-size:11px;color:var(--ink-faint);margin-bottom:5px}
+.detail-facts b{font-size:13px;font-family:var(--font-display);font-weight:600}
+
+/* ---------- ratings & reviews ---------- */
+.rating-summary{display:flex;align-items:center;gap:10px;margin:14px 0}
+.rating-summary .stars{color:var(--accent);font-size:16px;letter-spacing:2px}
+.rating-summary b{font-family:var(--font-display)}
+.rating-summary span{color:var(--ink-faint);font-size:12px}
+.reviews-section{margin:0 8% 70px}
+.reviews-section h2{font-size:24px;margin-bottom:18px}
+.review-card{border-top:1px solid var(--line);padding:16px 0}
+.review-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.review-head .stars{color:var(--accent);letter-spacing:1px}
+.review-author{font-weight:600;font-size:13px}
+.review-date{color:var(--ink-faint);font-size:11px}
+.review-text{color:var(--ink-soft);line-height:1.6;margin:0;font-size:14px}
+.review-form{border-top:1px solid var(--line);margin-top:10px;padding-top:22px;max-width:480px}
+.review-form h3{font-size:16px;margin-bottom:14px}
+.star-picker{display:flex;gap:4px;margin-bottom:14px}
+.star-picker button{background:none;border:1px solid var(--line);width:36px;height:36px;border-radius:var(--radius-s);font-size:16px;color:var(--ink-faint)}
+.star-picker button.active{color:var(--accent);border-color:var(--accent)}
+.review-form textarea,.review-form input{width:100%;border:1px solid var(--line);background:var(--surface-sunken);padding:11px;border-radius:var(--radius-s);margin-bottom:12px;font-size:13px}
+
+/* ---------- related / recently viewed ---------- */
+.related-section{margin:0 8% 70px}
+.related-section h2{font-size:22px;margin-bottom:18px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:28px 5.5%;display:flex;justify-content:space-between;align-items:center;color:var(--ink-faint);font-size:12px;gap:16px;flex-wrap:wrap}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,16px);background:var(--ink);color:var(--bg);padding:12px 20px;font-size:13px;border-radius:var(--radius-s);opacity:0;pointer-events:none;transition:.2s;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- modal / drawer ---------- */
+.modal-backdrop,.drawer-backdrop{position:fixed;inset:0;background:rgba(10,9,5,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}
+.drawer-backdrop{justify-content:flex-end;padding:0}
+.modal{background:var(--surface);color:var(--ink);width:min(440px,100%);padding:30px;position:relative;border-radius:var(--radius-m)}
+.drawer{background:var(--surface);color:var(--ink);width:min(400px,100%);height:100%;display:flex;flex-direction:column}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--line)}
+.drawer-head h2{font-size:20px}
+.drawer-body{flex:1;overflow-y:auto;padding:10px 24px}
+.drawer-foot{padding:18px 24px;border-top:1px solid var(--line)}
+.cart-line{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.cart-line img{width:52px;height:52px;object-fit:cover;border-radius:var(--radius-s);background:var(--surface-sunken)}
+.cart-line-icon{width:52px;height:52px;display:grid;place-items:center;background:var(--surface-sunken);border-radius:var(--radius-s);font-size:20px;color:var(--ink-faint);flex-shrink:0}
+.cart-line-info{flex:1;min-width:0}
+.cart-line-info b{display:block;font-size:13px;font-weight:600}
+.cart-line-info span{font-size:12px;color:var(--ink-soft)}
+.cart-line button{border:0;background:none;color:var(--ink-faint);font-size:18px}
+.modal-close{position:absolute;right:16px;top:14px;border:0;background:none;font-size:22px;color:var(--ink-faint)}
+.modal-kicker{color:var(--ink-faint);font-size:12px;margin:0 0 6px}
+.modal h2{font-size:30px;letter-spacing:-.6px;margin:0 0 10px}
+.modal p{color:var(--ink-soft);line-height:1.6}
+.checkout-lines{max-height:160px;overflow-y:auto}
+.checkout-lines div{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;color:var(--ink-soft)}
+.checkout-total{display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--line);margin-top:6px}
+.checkout-total b{font-family:var(--font-display);font-size:19px}
+.demo-notice{background:var(--surface-sunken);padding:12px;font-size:12px;line-height:1.6;color:var(--ink-soft);margin-bottom:16px;border-radius:var(--radius-s)}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .hero{padding:56px 6%;grid-template-columns:1fr}
+  .hero-art{max-width:600px}
+  .section-pad{padding:50px 6%}
+  .category-grid{grid-template-columns:repeat(3,1fr)}
+  .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #storeProducts,#freeProducts,#favoriteProducts,#libraryProducts,#homeProducts,#myListings{margin-left:6%;margin-right:6%}
+  .store-toolbar,.store-toolbar-secondary{padding-left:6%;padding-right:6%}
+  .searchbox{flex-basis:100%}
+  .page-heading{padding-left:6%;padding-right:6%}
+  .creator-layout{padding-left:6%;padding-right:6%;gap:4%}
+  .detail-layout,.reviews-section,.related-section,.creator-profile-head,.creator-stats{margin-left:6%;margin-right:6%}
+  .feature-strip{margin:0 6%}
+}
+@media(max-width:650px){
+  .topbar{height:62px;padding:0 5%}
+  .desktop-nav{display:none;position:absolute;top:62px;left:0;right:0;background:var(--bg);padding:16px 6%;margin:0;border-bottom:1px solid var(--line);flex-direction:column;gap:14px}
+  .desktop-nav.open{display:flex}
+  .header-actions{gap:2px}
+  .header-actions .button{display:none}
+  .mobile-menu{display:block}
+  .hero{padding:48px 6% 36px}
+  .hero h1{letter-spacing:-1px}
+  .hero-stats{gap:16px;flex-wrap:wrap}
+  .art-grid{height:230px}
+  .section-heading h2{font-size:24px}
+  .feature-strip{align-items:flex-start;flex-direction:column}
+  .category-grid{grid-template-columns:repeat(2,1fr)}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .product-image{height:140px}
+  .product-info{padding:11px}
+  .product-info h3{font-size:12.5px}
+  .page-heading h1{font-size:38px}
+  .store-toolbar select{flex:1;min-width:0}
+  .creator-layout{grid-template-columns:1fr}
+  .creator-info{padding:0 0 25px}
+  .form-row{grid-template-columns:1fr}
+  .detail-layout{grid-template-columns:1fr}
+  .detail-preview{min-height:260px}
+  .detail-copy h1{font-size:30px}
+  .creator-profile-head{flex-direction:column;align-items:flex-start;text-align:left}
+  footer{gap:12px}
+  footer>span:nth-child(2){display:none}
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ============================= HEADER ============================= -->
+  <header class="topbar">
+    <a class="brand" href="#" data-view="home">
+      <span class="brand-mark">L</span><span>LOIKZ <b>ASSET</b></span>
+    </a>
+    <nav class="desktop-nav" id="desktopNav">
+      <button data-view="store" class="nav-link active">Explore</button>
+      <button data-view="free" class="nav-link">Free assets</button>
+      <button data-view="creators" class="nav-link">Sell your work</button>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" title="Switch theme" aria-label="Switch color theme">◐</button>
+      <button class="icon-btn" id="favoritesShortcut" title="Favorites" aria-label="Favorites">♡<span id="favCount">0</span></button>
+      <button class="icon-btn" id="cartShortcut" title="Cart" aria-label="Cart">▣<span id="cartCount">0</span></button>
+      <button class="icon-btn" id="libraryShortcut" title="My library" aria-label="My library">▤</button>
+      <button class="button button-dark" id="sellShortcut">Sell an asset</button>
+      <button class="mobile-menu" id="mobileMenu" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================= HOME ============================= -->
+    <section id="homeView" class="view">
+      <div class="hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-kicker">The creator marketplace for game development</p>
+          <h1>Build worlds<br>without starting<br>from zero.</h1>
+          <p class="hero-sub">Game-ready 3D models, animations, scripts, sounds and tools — made by working creators, ready to drop into your project.</p>
+          <div class="hero-actions">
+            <button class="button button-light" data-view="store">Explore the catalog</button>
+            <button class="button button-outline" data-view="creators">Sell your work</button>
+          </div>
+          <dl class="hero-stats">
+            <div><dt id="heroAssetCount">12</dt><dd>assets in the catalog</dd></div>
+            <div><dt>Free &amp; paid</dt><dd>your choice, up front</dd></div>
+            <div><dt>Creator-led</dt><dd>made by the community</dd></div>
+          </dl>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-grid">
+            <div class="art-tile art-main"><div class="wire-cube"></div><span>3D / Environment</span></div>
+            <div class="art-tile art-side"><div class="wire-sphere"></div><span>3D / Object</span></div>
+            <div class="art-tile art-bottom"><div class="wire-ring"></div><span>Code / Motion</span></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section-pad">
+        <div class="section-heading">
+          <h2>Find your next building block</h2>
+          <button class="text-link" data-view="store">View all assets</button>
+        </div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </section>
+
+      <section class="section-pad feature-strip">
+        <div class="feature-strip-copy">
+          <h2>Good tools make great things possible</h2>
+          <p>Whether you're prototyping a game, building a world or shipping a production project, find the pieces that help you move forward — or publish your own for others to use.</p>
+        </div>
+        <button class="button button-light" data-view="creators">Start selling</button>
+      </section>
+
+      <section class="section-pad">
+        <div class="section-heading">
+          <h2>Featured assets</h2>
+          <button class="text-link" data-view="store">Explore marketplace</button>
+        </div>
+        <div class="product-grid" id="homeProducts"></div>
+      </section>
+
+      <section class="section-pad recent-strip hidden" id="recentHomeSection">
+        <div class="section-heading"><h2>Recently viewed</h2></div>
+        <div class="product-grid product-grid-scroll" id="recentHomeProducts"></div>
+      </section>
+    </section>
+
+    <!-- ============================= STORE ============================= -->
+    <section id="storeView" class="view hidden">
+      <div class="page-heading">
+        <h1>Explore the catalog</h1>
+        <p>Search, filter and sort to find the right piece for your project.</p>
+      </div>
+
+      <div class="store-toolbar">
+        <div class="searchbox">
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" placeholder="Search models, scripts, animations…" autocomplete="off">
+          <div class="search-suggestions hidden" id="searchSuggestions"></div>
+        </div>
+        <select id="categoryFilter" aria-label="Filter by category"><option value="All">All categories</option></select>
+        <select id="priceFilter" aria-label="Filter by price"><option value="All">All prices</option><option value="Free">Free</option><option value="Paid">Paid</option></select>
+        <select id="ratingFilter" aria-label="Filter by rating">
+          <option value="0">Any rating</option>
+          <option value="4">4 stars &amp; up</option>
+          <option value="4.5">4.5 stars &amp; up</option>
+        </select>
+        <select id="sortFilter" aria-label="Sort assets">
+          <option value="Featured">Featured</option>
+          <option value="Newest">Newest</option>
+          <option value="PriceLow">Price: low to high</option>
+          <option value="PriceHigh">Price: high to low</option>
+          <option value="Rating">Highest rated</option>
+        </select>
+      </div>
+      <div class="store-toolbar store-toolbar-secondary">
+        <label class="range-field">Min price <input id="priceMin" type="number" min="0" step="0.5" placeholder="0"></label>
+        <label class="range-field">Max price <input id="priceMax" type="number" min="0" step="0.5" placeholder="Any"></label>
+      </div>
+
+      <div class="results-line">
+        <span id="resultsCount">Showing assets</span>
+        <button class="text-link" id="clearFilters">Clear filters</button>
+      </div>
+      <div class="product-grid" id="storeProducts"></div>
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-icon">⌕</div>
+        <h3>No assets found</h3>
+        <p>Try a different search or clear your filters.</p>
+      </div>
+    </section>
+
+    <!-- ============================= FREE ============================= -->
+    <section id="freeView" class="view hidden">
+      <div class="page-heading">
+        <h1>Free assets</h1>
+        <p>Useful resources you can add to your library for $0.</p>
+      </div>
+      <div class="product-grid" id="freeProducts"></div>
+    </section>
+
+    <!-- ============================= SELL / CREATORS ============================= -->
+    <section id="creatorsView" class="view hidden">
+      <div class="page-heading">
+        <h1>Your work.<br>Your storefront.</h1>
+        <p>Share your creations with developers and makers. List free resources or set a price for your work.</p>
+      </div>
+      <div class="creator-layout">
+        <div class="creator-info">
+          <div class="creator-icon">＋</div>
+          <h2>Put your work out into the world</h2>
+          <p>Upload an asset, add its details, choose free or paid, and publish it to this browser's marketplace.</p>
+          <ul>
+            <li>List 3D models, scripts, animation and more</li>
+            <li>Choose your own price</li>
+            <li>Edit or remove your listings any time</li>
+            <li>Preview your product before publishing</li>
+          </ul>
+        </div>
+        <form id="uploadForm" class="upload-card">
+          <div class="form-title">
+            <h2 id="formHeading">Publish an asset</h2>
+          </div>
+          <label>Asset name<input id="assetName" required maxlength="70" placeholder="e.g. Modular Sci-Fi Door"></label>
+          <label>Category<select id="assetCategory" required></select></label>
+          <label>Description<textarea id="assetDescription" required maxlength="500" rows="4" placeholder="What does this asset include?"></textarea></label>
+          <div class="form-row">
+            <label>Price (USD)<input id="assetPrice" type="number" min="0" max="9999" step="0.01" value="0" required></label>
+            <label>Preview image URL<input id="assetImage" type="url" placeholder="https://…"></label>
+          </div>
+          <label id="assetFileLabel">Download file<input id="assetFile" type="file" required></label>
+          <p class="field-note">Local demo: your listing and file are saved in this browser only. Use files you own or have permission to distribute.</p>
+          <div class="form-actions">
+            <button class="button button-dark full" type="submit" id="uploadSubmitBtn">Publish listing</button>
+            <button class="button full hidden" type="button" id="cancelEditBtn">Cancel edit</button>
+          </div>
+          <div id="uploadMessage" class="form-message" aria-live="polite"></div>
+        </form>
+      </div>
+      <section class="my-listings">
+        <div class="section-heading"><h2>My listings</h2></div>
+        <div id="myListings" class="product-grid"></div>
+      </section>
+    </section>
+
+    <!-- ============================= FAVORITES ============================= -->
+    <section id="favoritesView" class="view hidden">
+      <div class="page-heading"><h1>Your favorites</h1></div>
+      <div id="favoriteProducts" class="product-grid"></div>
+    </section>
+
+    <!-- ============================= LIBRARY ============================= -->
+    <section id="libraryView" class="view hidden">
+      <div class="page-heading"><h1>My library</h1><p>Assets you've added to your collection in this browser.</p></div>
+      <div id="libraryProducts" class="product-grid"></div>
+    </section>
+
+    <!-- ============================= CREATOR PROFILE ============================= -->
+    <section id="creatorView" class="view hidden">
+      <button class="back-link" data-view="store">← Back to marketplace</button>
+      <div id="creatorDetail"></div>
+    </section>
+
+    <!-- ============================= PRODUCT DETAIL ============================= -->
+    <section id="productView" class="view hidden">
+      <button class="back-link" data-view="store">← Back to marketplace</button>
+      <div id="productDetail"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#" data-view="home"><span class="brand-mark">L</span><span>LOIKZ <b>ASSET</b></span></a>
+    <span>Tools for people who make things.</span>
+    <span>© <span id="year"></span> LOIKZ ASSET · Demo marketplace</span>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Cart drawer -->
+  <div class="drawer-backdrop hidden" id="cartDrawer">
+    <div class="drawer" role="dialog" aria-label="Cart">
+      <div class="drawer-head">
+        <h2>Your cart</h2>
+        <button class="modal-close" id="closeCart" aria-label="Close cart">×</button>
+      </div>
+      <div class="drawer-body" id="cartItems"></div>
+      <div class="drawer-foot">
+        <div class="checkout-total"><span>Total</span><b id="cartTotal">$0.00</b></div>
+        <button class="button button-dark full" id="cartCheckoutBtn">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout modal -->
+  <div class="modal-backdrop hidden" id="checkoutModal">
+    <div class="modal">
+      <button class="modal-close" id="closeModal" aria-label="Close">×</button>
+      <p class="modal-kicker">Demo checkout</p>
+      <h2>Almost yours</h2>
+      <p id="checkoutDescription">This is a demo purchase flow. No payment will be collected.</p>
+      <div id="checkoutLines" class="checkout-lines"></div>
+      <div class="checkout-total"><span>Total</span><b id="checkoutTotal">$0.00</b></div>
+      <div class="demo-notice">Demo only — this prototype does not process real payments. No card details are requested.</div>
+      <button class="button button-dark full" id="confirmDemo">Complete demo purchase</button>
+    </div>
+  </div>
+
+  <script>
+"use strict";
+/* =====================================================================
+   LOIKZ ASSET — marketplace prototype
+   Organized in sections: Data -> Helpers -> State -> Derived data
+   -> Rendering -> Views -> Cart -> Reviews -> Creator profiles
+   -> Manage listings -> Search -> Theme -> Init & events
+   ===================================================================== */
+
+/* ===================== DATA ===================== */
+const CATEGORIES = ["3D Models","Animations","Scripts","Environments","UI & HUD","Audio","Textures","Plugins"];
+const ICONS = {"3D Models":"◈","Animations":"◌","Scripts":"⌘","Environments":"▧","UI & HUD":"▦","Audio":"♫","Textures":"▤","Plugins":"⌬"};
+
+const SEED = [
+  {id:"a1",name:"Modular Sci-Fi Crate",category:"3D Models",description:"A clean modular sci-fi storage crate for game environments. Includes a detailed preview and a sample asset listing.",price:0,creator:"Loikz Studio",image:"https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=900&q=85",featured:true},
+  {id:"a2",name:"Stylized Forest Pack",category:"Environments",description:"A stylized forest environment collection for prototypes and game scenes.",price:12.99,creator:"Northstar Assets",image:"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=85",featured:true},
+  {id:"a3",name:"Smooth Movement Controller",category:"Scripts",description:"A sample movement controller listing for browser game developers. Review and adapt the included demo file.",price:4.99,creator:"Pixel Mechanics",image:"https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85",featured:true},
+  {id:"a4",name:"Minimal HUD Interface",category:"UI & HUD",description:"A monochrome-inspired HUD concept pack for game interfaces.",price:0,creator:"Mono Works",image:"https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85",featured:true},
+  {id:"a5",name:"Character Motion Set",category:"Animations",description:"A starter collection of character motion references and animation files.",price:8.50,creator:"Frame by Frame",image:"https://images.unsplash.com/photo-1614294149010-950b698f72c0?auto=format&fit=crop&w=900&q=85"},
+  {id:"a6",name:"Concrete Surface Materials",category:"Textures",description:"A small collection of concrete surface materials for environment art.",price:3.99,creator:"Surface Lab",image:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=85"},
+  {id:"a7",name:"Retro UI Sound Effects",category:"Audio",description:"A collection of short interface sound effects for prototypes.",price:0,creator:"Sound Pocket",image:"https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=900&q=85"},
+  {id:"a8",name:"Low Poly Robot",category:"3D Models",description:"A low-poly robot character concept for games and prototypes.",price:14.99,creator:"Tiny Polygon",image:"https://images.unsplash.com/photo-1535378620166-273708d44e4c?auto=format&fit=crop&w=900&q=85"},
+  {id:"a9",name:"Inventory System UI",category:"Scripts",description:"An example inventory interface system listing for game projects.",price:9.99,creator:"Pixel Mechanics",image:"https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85"},
+  {id:"a10",name:"Ambient Space Loop",category:"Audio",description:"Ambient audio concept for sci-fi scenes and menus.",price:5.00,creator:"Quiet Signal",image:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=85"},
+  {id:"a11",name:"Neon Sign Shader",category:"Plugins",description:"A sample shader/plugin product listing for glowing sign effects.",price:0,creator:"Shader Dept.",image:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=85"},
+  {id:"a12",name:"Abandoned Room Props",category:"Environments",description:"A set of atmospheric room props for suspense and exploration games.",price:19.99,creator:"Northstar Assets",image:"https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=85"}
+];
+// Stagger fake creation dates across the seed catalog so "Newest" sorting has something to say.
+SEED.forEach((a,i)=>{ a.createdAt = Date.now() - (SEED.length - i) * 1000*60*60*24*5; });
+
+const CREATORS = {
+  "Loikz Studio":{bio:"The team behind LOIKZ ASSET's starter catalog — clean, modular pieces built to drop into any prototype.",initial:"LS"},
+  "Northstar Assets":{bio:"Environment specialists making atmospheric scenes and props for exploration and narrative games.",initial:"NA"},
+  "Pixel Mechanics":{bio:"Gameplay engineers sharing reusable systems — movement, inventory, and other things you'd rather not rebuild.",initial:"PM"},
+  "Mono Works":{bio:"A small studio focused on clean, monochrome interface design for games.",initial:"MW"},
+  "Frame by Frame":{bio:"Animators building motion libraries for characters and creatures.",initial:"FF"},
+  "Surface Lab":{bio:"A material and texture studio for environment artists.",initial:"SL"},
+  "Sound Pocket":{bio:"Sound design for interfaces, ambience, and game feel.",initial:"SP"},
+  "Tiny Polygon":{bio:"Low-poly characters and props with a handcrafted feel.",initial:"TP"},
+  "Quiet Signal":{bio:"Ambient and atmospheric audio for games that like to breathe.",initial:"QS"},
+  "Shader Dept.":{bio:"Shaders and visual effects plugins for stylized games.",initial:"SD"},
+  "You":{bio:"Your own creator profile for assets you've published in this browser.",initial:"Y"}
+};
+
+const SEED_REVIEWS = {
+  a1:[{id:"s1",author:"Jess",rating:5,text:"Clean topology and exactly as pictured. Dropped straight into my scene.",date:Date.now()-86400000*20},
+      {id:"s2",author:"Marcus",rating:4,text:"Good crate — wish there were more texture variants.",date:Date.now()-86400000*10}],
+  a2:[{id:"s3",author:"Priya",rating:5,text:"Beautiful forest set, saved me a week of environment work.",date:Date.now()-86400000*15}],
+  a3:[{id:"s4",author:"Dev",rating:4,text:"Solid starting point for a movement controller, easy to adapt.",date:Date.now()-86400000*8},
+      {id:"s5",author:"Alina",rating:5,text:"Smooth and well commented.",date:Date.now()-86400000*4}],
+  a5:[{id:"s6",author:"Tomas",rating:4,text:"Useful reference set for character animation work.",date:Date.now()-86400000*12}],
+  a8:[{id:"s7",author:"Noor",rating:5,text:"Great low-poly robot, rigs cleanly.",date:Date.now()-86400000*6},
+      {id:"s8",author:"Kai",rating:5,text:"Exactly the style I needed for my prototype.",date:Date.now()-86400000*2}],
+  a12:[{id:"s9",author:"Ren",rating:4,text:"Atmospheric props with good variety in the pack.",date:Date.now()-86400000*18}]
+};
+
+/* ===================== DOM & STORAGE HELPERS ===================== */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const read = (k,d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v === null || v === undefined ? d : v; } catch { return d; } };
+const write = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money = n => n === 0 ? "Free" : "$" + Number(n).toFixed(2);
+const starString = avg => "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg));
+function debounce(fn, wait){ let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); }; }
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove("show"), 2400); }
+
+/* ===================== STATE (persisted in localStorage) ===================== */
+let custom = read("loikz_custom", []);
+let favorites = read("loikz_favorites", []);
+let library = read("loikz_library", []);
+let cart = read("loikz_cart", []);
+let userReviews = read("loikz_reviews", {});
+let recentlyViewed = read("loikz_recent", []);
+let theme = read("loikz_theme", "light");
+
+let activeProduct = null;
+let editingId = null;
+let pendingCheckoutItems = [];
+
+/* ===================== DERIVED DATA ===================== */
+const allAssets = () => [...custom, ...SEED];
+const findAsset = id => allAssets().find(x => x.id === id);
+const getReviews = id => [...(SEED_REVIEWS[id] || []), ...(userReviews[id] || [])];
+function ratingStats(id){
+  const list = getReviews(id);
+  if (!list.length) return { avg: 0, count: 0 };
+  const sum = list.reduce((s, r) => s + r.rating, 0);
+  return { avg: sum / list.length, count: list.length };
+}
+function computeBadge(a){
+  if (a.price === 0) return "Free";
+  if (a.custom && Date.now() - a.createdAt < 1000*60*60*24*3) return "New";
+  if (a.featured) return "Trending";
+  const { avg, count } = ratingStats(a.id);
+  if (avg >= 4.7 && count >= 2) return "Bestseller";
+  return null;
+}
+
+/* ===================== CARDS & GRIDS ===================== */
+function card(a, opts = {}){
+  const stats = ratingStats(a.id);
+  const saved = favorites.includes(a.id);
+  const inCart = cart.includes(a.id);
+  const badge = computeBadge(a);
+  const showCartBtn = a.price > 0 && !opts.manage;
+  const creatorName = a.creator || "Community creator";
+  return `<article class="product-card" data-product="${a.id}">
+    <div class="product-image">
+      ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">` : ""}
+      <div class="image-placeholder" style="${a.image ? "display:none" : ""}">${ICONS[a.category] || "◈"}</div>
+      <span class="price-tag">${money(a.price)}</span>
+      ${badge ? `<span class="badge-tag">${badge}</span>` : ""}
+      ${opts.manage ? "" : `<button class="favorite-btn ${saved ? "saved" : ""}" data-favorite="${a.id}" aria-label="Toggle favorite">${saved ? "♥" : "♡"}</button>`}
+      ${showCartBtn ? `<button class="cart-add-btn" data-cart-add="${a.id}" aria-label="${inCart ? "Remove from cart" : "Add to cart"}" title="${inCart ? "In cart" : "Add to cart"}">${inCart ? "✓" : "+"}</button>` : ""}
+    </div>
+    <div class="product-info">
+      <div class="product-category">${esc(a.category)}</div>
+      <h3>${esc(a.name)}</h3>
+      <div class="product-meta">
+        <button class="creator-link" data-creator="${esc(creatorName)}">by ${esc(creatorName)}</button>
+        <span>${a.price === 0 ? "Free" : "Paid"}</span>
+      </div>
+      ${stats.count ? `<div class="rating-line"><span class="stars">${starString(stats.avg)}</span><span>${stats.avg.toFixed(1)} (${stats.count})</span></div>` : ""}
+      <div class="product-bottom"><span class="product-price">${money(a.price)}</span><span class="view-link">View asset</span></div>
+    </div>
+    ${opts.manage ? `<div class="manage-actions"><button type="button" data-edit="${a.id}">Edit</button><button type="button" class="danger" data-delete="${a.id}">Delete</button></div>` : ""}
+  </article>`;
+}
+function renderGrid(el, items, emptyText = "No assets here yet.", opts = {}){
+  el.innerHTML = items.length
+    ? items.map(a => card(a, opts)).join("")
+    : `<div class="empty-state"><div class="empty-icon">◈</div><h3>${emptyText}</h3><p>Explore the marketplace to discover something new.</p></div>`;
+}
+
+/* ===================== VIEW RENDERERS ===================== */
+function renderHome(){
+  $("#categoryGrid").innerHTML = CATEGORIES.map(c => `<button class="category-card" data-category="${c}"><span class="cat-icon">${ICONS[c]}</span><b>${c}</b><small>Explore</small></button>`).join("");
+  renderGrid($("#homeProducts"), allAssets().filter(a => a.featured).slice(0, 4));
+  $("#heroAssetCount").textContent = allAssets().length;
+  renderRecentHome();
+}
+function renderRecentHome(){
+  const items = recentlyViewed.map(findAsset).filter(Boolean).slice(0, 8);
+  const section = $("#recentHomeSection");
+  if (!items.length){ section.classList.add("hidden"); return; }
+  section.classList.remove("hidden");
+  $("#recentHomeProducts").innerHTML = items.map(a => card(a)).join("");
+}
+function renderStore(){
+  const q = $("#searchInput").value.trim().toLowerCase();
+  const cat = $("#categoryFilter").value;
+  const price = $("#priceFilter").value;
+  const minRating = Number($("#ratingFilter").value) || 0;
+  const sort = $("#sortFilter").value;
+  const minP = $("#priceMin").value !== "" ? Number($("#priceMin").value) : null;
+  const maxP = $("#priceMax").value !== "" ? Number($("#priceMax").value) : null;
+
+  let items = allAssets().filter(a => {
+    const text = (a.name + " " + a.description + " " + a.category + " " + (a.creator || "")).toLowerCase();
+    if (!text.includes(q)) return false;
+    if (cat !== "All" && a.category !== cat) return false;
+    if (price === "Free" && a.price !== 0) return false;
+    if (price === "Paid" && a.price === 0) return false;
+    if (minP !== null && a.price < minP) return false;
+    if (maxP !== null && a.price > maxP) return false;
+    if (minRating > 0 && ratingStats(a.id).avg < minRating) return false;
+    return true;
+  });
+
+  if (sort === "Newest") items = [...items].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  if (sort === "PriceLow") items = [...items].sort((a, b) => a.price - b.price);
+  if (sort === "PriceHigh") items = [...items].sort((a, b) => b.price - a.price);
+  if (sort === "Rating") items = [...items].sort((a, b) => ratingStats(b.id).avg - ratingStats(a.id).avg);
+
+  $("#resultsCount").textContent = `Showing ${items.length} asset${items.length === 1 ? "" : "s"}`;
+  $("#storeProducts").innerHTML = items.map(a => card(a)).join("");
+  $("#emptyState").classList.toggle("hidden", items.length > 0);
+}
+function renderFree(){ renderGrid($("#freeProducts"), allAssets().filter(a => a.price === 0), "No free assets available yet."); }
+function renderFavorites(){ renderGrid($("#favoriteProducts"), allAssets().filter(a => favorites.includes(a.id)), "You haven't saved any assets yet."); }
+function renderLibrary(){ renderGrid($("#libraryProducts"), allAssets().filter(a => library.includes(a.id)), "Your library is empty."); }
+function renderMyListings(){ renderGrid($("#myListings"), custom, "You haven't published any assets yet.", { manage: true }); }
+
+function go(view){
+  document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
+  const target = $("#" + view + "View");
+  if (target) target.classList.remove("hidden");
+  document.querySelectorAll(".nav-link").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  $("#desktopNav").classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (view === "store") renderStore();
+  if (view === "free") renderFree();
+  if (view === "favorites") renderFavorites();
+  if (view === "library") renderLibrary();
+  if (view === "creators") renderMyListings();
+}
+
+/* ===================== PRODUCT DETAIL ===================== */
+function trackRecentlyViewed(id){
+  recentlyViewed = [id, ...recentlyViewed.filter(x => x !== id)].slice(0, 10);
+  write("loikz_recent", recentlyViewed);
+}
+function openProduct(id){
+  const a = findAsset(id);
+  if (!a) return;
+  closeCart();
+  activeProduct = a;
+  trackRecentlyViewed(id);
+
+  const owned = library.includes(id);
+  const inCart = cart.includes(id);
+  const stats = ratingStats(id);
+  const reviews = getReviews(id);
+  const related = allAssets().filter(x => x.category === a.category && x.id !== id).slice(0, 4);
+  const recent = recentlyViewed.filter(x => x !== id).map(findAsset).filter(Boolean).slice(0, 4);
+  const creatorName = a.creator || "Community creator";
+
+  $("#productDetail").innerHTML = `
+    <div class="detail-layout">
+      <div class="detail-preview">
+        ${a.image ? `<img src="${esc(a.image)}" alt="${esc(a.name)}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">` : ""}
+        <div class="image-placeholder" style="${a.image ? "display:none" : ""}">${ICONS[a.category] || "◈"}</div>
+      </div>
+      <div class="detail-copy">
+        <div class="eyebrow">${esc(a.category)} · Digital asset</div>
+        <h1>${esc(a.name)}</h1>
+        <div class="product-meta">
+          <button class="creator-link" data-creator="${esc(creatorName)}">By ${esc(creatorName)}</button>
+          <span>${a.price === 0 ? "Free" : "Paid asset"}</span>
+        </div>
+        ${stats.count ? `<div class="rating-summary"><span class="stars">${starString(stats.avg)}</span><b>${stats.avg.toFixed(1)}</b><span>${stats.count} review${stats.count === 1 ? "" : "s"}</span></div>` : `<div class="rating-summary"><span>No reviews yet</span></div>`}
+        <p>${esc(a.description)}</p>
+        <div class="detail-price">${money(a.price)}</div>
+        <div class="detail-actions">
+          ${owned
+            ? `<button class="button button-dark" id="downloadOwned">Download again</button>`
+            : a.price === 0
+              ? `<button class="button button-dark" id="getFree">Add to library</button>`
+              : `<button class="button button-dark" id="buyAsset">Buy now</button><button class="button" id="cartToggleBtn">${inCart ? "Remove from cart" : "Add to cart"}</button>`
+          }
+          <button class="button" id="detailFavorite">${favorites.includes(id) ? "♥ Saved" : "♡ Save"}</button>
+        </div>
+        <div class="detail-facts">
+          <div><span>File type</span><b>${a.fileName ? esc(a.fileName.split(".").pop().toUpperCase()) : "Demo listing"}</b></div>
+          <div><span>Price</span><b>${money(a.price)}</b></div>
+          <div><span>License</span><b>See creator terms</b></div>
+          <div><span>Delivery</span><b>Digital download</b></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="reviews-section">
+      <h2>Ratings &amp; reviews</h2>
+      ${reviews.length ? reviews.slice().reverse().map(r => `
+        <div class="review-card">
+          <div class="review-head"><span class="review-author">${esc(r.author)}</span><span class="review-date">${new Date(r.date).toLocaleDateString()}</span></div>
+          <div class="stars">${starString(r.rating)}</div>
+          <p class="review-text">${esc(r.text)}</p>
+        </div>`).join("") : `<p style="color:var(--ink-soft)">No reviews yet — be the first to share your experience.</p>`}
+      <form class="review-form" id="reviewForm">
+        <h3>Write a review</h3>
+        <input id="reviewAuthor" maxlength="40" placeholder="Your name (optional)">
+        <div class="star-picker" id="starPicker">${[1,2,3,4,5].map(n => `<button type="button" data-star="${n}" aria-label="${n} star${n === 1 ? "" : "s"}">★</button>`).join("")}</div>
+        <textarea id="reviewText" rows="3" required maxlength="400" placeholder="What did you think of this asset?"></textarea>
+        <button class="button button-dark" type="submit">Submit review</button>
+      </form>
+    </section>
+
+    ${related.length ? `<section class="related-section"><h2>You might also like</h2><div class="product-grid">${related.map(x => card(x)).join("")}</div></section>` : ""}
+    ${recent.length ? `<section class="related-section"><h2>Recently viewed</h2><div class="product-grid">${recent.map(x => card(x)).join("")}</div></section>` : ""}
+  `;
+
+  $("#downloadOwned")?.addEventListener("click", () => downloadAsset(a));
+  $("#getFree")?.addEventListener("click", () => { addToLibrary(a.id); downloadAsset(a); });
+  $("#buyAsset")?.addEventListener("click", () => startCheckoutSingle(a));
+  $("#cartToggleBtn")?.addEventListener("click", () => { toggleCartItem(a.id); openProduct(id); });
+  $("#detailFavorite").addEventListener("click", () => toggleFavorite(id));
+
+  let pickedStars = 0;
+  const starBtns = $$("#starPicker button");
+  starBtns.forEach(btn => btn.addEventListener("click", () => {
+    pickedStars = Number(btn.dataset.star);
+    starBtns.forEach(b => b.classList.toggle("active", Number(b.dataset.star) <= pickedStars));
+  }));
+  $("#reviewForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const text = $("#reviewText").value.trim();
+    if (!pickedStars){ toast("Choose a star rating first"); return; }
+    if (!text){ toast("Add a few words to your review"); return; }
+    const author = $("#reviewAuthor").value.trim() || "Anonymous";
+    submitReview(id, pickedStars, text, author);
+  });
+
+  go("product");
+}
+function submitReview(assetId, rating, text, author){
+  if (!userReviews[assetId]) userReviews[assetId] = [];
+  userReviews[assetId].push({ id: "rv" + Date.now(), author, rating, text, date: Date.now() });
+  write("loikz_reviews", userReviews);
+  toast("Thanks for your review");
+  openProduct(assetId);
+}
+
+/* ===================== CREATOR PROFILES ===================== */
+function openCreator(name){
+  const items = allAssets().filter(a => (a.creator || "Community creator") === name);
+  const info = CREATORS[name] || { bio: "A creator on LOIKZ ASSET.", initial: name.charAt(0).toUpperCase() };
+  const totals = items.reduce((acc, a) => { const r = ratingStats(a.id); acc.sum += r.avg * r.count; acc.count += r.count; return acc; }, { sum: 0, count: 0 });
+  const avg = totals.count ? totals.sum / totals.count : 0;
+
+  $("#creatorDetail").innerHTML = `
+    <div class="creator-profile-head">
+      <div class="creator-avatar">${esc(info.initial || name.charAt(0).toUpperCase())}</div>
+      <div><h1>${esc(name)}</h1><p>${esc(info.bio)}</p></div>
+    </div>
+    <div class="creator-stats">
+      <span><b>${items.length}</b> listing${items.length === 1 ? "" : "s"}</span>
+      <span><b>${avg ? avg.toFixed(1) : "—"}</b> average rating</span>
+    </div>
+    <div class="product-grid" style="margin:0 8% 70px">${items.length ? items.map(a => card(a)).join("") : `<p style="color:var(--ink-soft)">No listings yet.</p>`}</div>
+  `;
+  go("creator");
+}
+
+/* ===================== FAVORITES / LIBRARY / DOWNLOAD ===================== */
+function toggleFavorite(id){
+  favorites = favorites.includes(id) ? favorites.filter(x => x !== id) : [...favorites, id];
+  write("loikz_favorites", favorites);
+  $("#favCount").textContent = favorites.length;
+  if (activeProduct?.id === id) $("#detailFavorite").textContent = favorites.includes(id) ? "♥ Saved" : "♡ Save";
+  renderStore(); renderHome(); renderFavorites();
+  toast(favorites.includes(id) ? "Saved to favorites" : "Removed from favorites");
+}
+function addToLibrary(id){
+  if (!library.includes(id)){ library.push(id); write("loikz_library", library); toast("Added to your library"); }
+}
+function downloadAsset(a){
+  if (a.dataUrl){
+    const link = document.createElement("a");
+    link.href = a.dataUrl; link.download = a.fileName || "asset";
+    document.body.appendChild(link); link.click(); link.remove();
+    return;
+  }
+  const content = `LOIKZ ASSET DEMO\n\n${a.name}\nCategory: ${a.category}\nCreator: ${a.creator}\n\nThis is a sample marketplace listing. It does not include a production asset file.`;
+  const blob = new Blob([content], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url; link.download = (a.name || "asset").replace(/[^a-z0-9]+/gi, "-").toLowerCase() + "-demo.txt";
+  link.click();
+  URL.revokeObjectURL(url);
+  toast("Demo listing file downloaded");
+}
+
+/* ===================== CART & CHECKOUT ===================== */
+const cartItemsData = () => cart.map(findAsset).filter(Boolean);
+const cartTotal = () => cartItemsData().reduce((s, a) => s + a.price, 0);
+function renderCartBadge(){ $("#cartCount").textContent = cart.length; }
+function renderCartDrawer(){
+  const items = cartItemsData();
+  $("#cartItems").innerHTML = items.length
+    ? items.map(a => `
+      <div class="cart-line" data-product="${a.id}">
+        ${a.image ? `<img src="${esc(a.image)}" alt="">` : `<div class="cart-line-icon">${ICONS[a.category] || "◈"}</div>`}
+        <div class="cart-line-info"><b>${esc(a.name)}</b><span>${money(a.price)}</span></div>
+        <button data-cart-remove="${a.id}" aria-label="Remove ${esc(a.name)} from cart">×</button>
+      </div>`).join("")
+    : `<p style="color:var(--ink-soft);padding:20px 0">Your cart is empty.</p>`;
+  $("#cartTotal").textContent = money(cartTotal());
+}
+function renderCartDrawerIfOpen(){ if (!$("#cartDrawer").classList.contains("hidden")) renderCartDrawer(); }
+function toggleCartItem(id){
+  const a = findAsset(id);
+  if (!a || a.price === 0) return;
+  if (cart.includes(id)){ cart = cart.filter(x => x !== id); toast("Removed from cart"); }
+  else { cart = [...cart, id]; toast("Added to cart"); }
+  write("loikz_cart", cart);
+  renderCartBadge(); renderStore(); renderHome(); renderCartDrawerIfOpen();
+}
+function openCart(){ renderCartDrawer(); $("#cartDrawer").classList.remove("hidden"); }
+function closeCart(){ $("#cartDrawer").classList.add("hidden"); }
+
+function openCheckoutModal(){
+  const items = pendingCheckoutItems;
+  $("#checkoutDescription").textContent = items.length === 1
+    ? `You're previewing the demo purchase for "${items[0].name}". No payment details are collected and no money will be charged.`
+    : `You're previewing a demo purchase for ${items.length} items. No payment details are collected and no money will be charged.`;
+  $("#checkoutLines").innerHTML = items.map(a => `<div><span>${esc(a.name)}</span><span>${money(a.price)}</span></div>`).join("");
+  $("#checkoutTotal").textContent = money(items.reduce((s, a) => s + a.price, 0));
+  $("#checkoutModal").classList.remove("hidden");
+}
+function startCheckoutSingle(a){ pendingCheckoutItems = [a]; closeCart(); openCheckoutModal(); }
+function startCheckoutFromCart(){
+  if (!cart.length){ toast("Your cart is empty"); return; }
+  pendingCheckoutItems = cartItemsData();
+  closeCart();
+  openCheckoutModal();
+}
+
+/* ===================== MANAGE LISTINGS (edit / delete) ===================== */
+function resetUploadForm(){
+  editingId = null;
+  $("#uploadForm").reset();
+  $("#assetPrice").value = "0";
+  $("#assetFile").required = true;
+  $("#formHeading").textContent = "Publish an asset";
+  $("#uploadSubmitBtn").textContent = "Publish listing";
+  $("#cancelEditBtn").classList.add("hidden");
+  $("#uploadMessage").textContent = "";
+}
+function editListing(id){
+  const a = custom.find(x => x.id === id);
+  if (!a) return;
+  editingId = id;
+  $("#assetName").value = a.name;
+  $("#assetCategory").value = a.category;
+  $("#assetDescription").value = a.description;
+  $("#assetPrice").value = a.price;
+  $("#assetImage").value = a.image || "";
+  $("#assetFile").required = false;
+  $("#formHeading").textContent = "Edit listing";
+  $("#uploadSubmitBtn").textContent = "Save changes";
+  $("#cancelEditBtn").classList.remove("hidden");
+  go("creators");
+  $(".upload-card").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function deleteListing(id){
+  if (!confirm("Delete this listing? This can't be undone.")) return;
+  custom = custom.filter(x => x.id !== id);
+  favorites = favorites.filter(x => x !== id);
+  library = library.filter(x => x !== id);
+  cart = cart.filter(x => x !== id);
+  recentlyViewed = recentlyViewed.filter(x => x !== id);
+  delete userReviews[id];
+  write("loikz_custom", custom); write("loikz_favorites", favorites); write("loikz_library", library);
+  write("loikz_cart", cart); write("loikz_recent", recentlyViewed); write("loikz_reviews", userReviews);
+  renderCartBadge(); renderMyListings(); renderHome(); renderStore();
+  toast("Listing deleted");
+}
+
+/* ===================== SEARCH AUTOCOMPLETE ===================== */
+function renderSuggestions(q){
+  const box = $("#searchSuggestions");
+  if (!q){ box.classList.add("hidden"); box.innerHTML = ""; return; }
+  const matches = allAssets().filter(a => a.name.toLowerCase().includes(q.toLowerCase())).slice(0, 5);
+  if (!matches.length){ box.classList.add("hidden"); box.innerHTML = ""; return; }
+  box.innerHTML = matches.map(a => `<button type="button" data-suggest="${a.id}">${esc(a.name)}<small>${esc(a.category)} · ${money(a.price)}</small></button>`).join("");
+  box.classList.remove("hidden");
+}
+
+/* ===================== THEME ===================== */
+function applyTheme(t){
+  theme = t;
+  document.documentElement.setAttribute("data-theme", t);
+  $("#themeToggle").textContent = t === "dark" ? "☀" : "◐";
+  write("loikz_theme", t);
+}
+
+/* ===================== INIT ===================== */
+function init(){
+  const catOpts = CATEGORIES.map(c => `<option>${c}</option>`).join("");
+  $("#categoryFilter").insertAdjacentHTML("beforeend", catOpts);
+  $("#assetCategory").innerHTML = catOpts;
+  $("#favCount").textContent = favorites.length;
+  $("#year").textContent = new Date().getFullYear();
+  applyTheme(theme);
+  renderCartBadge();
+  renderHome();
+  renderStore();
+}
+
+/* ===================== EVENTS ===================== */
+document.addEventListener("click", e => {
+  const view = e.target.closest("[data-view]");
+  if (view){ e.preventDefault(); go(view.dataset.view); return; }
+
+  const cat = e.target.closest("[data-category]");
+  if (cat){ go("store"); $("#categoryFilter").value = cat.dataset.category; renderStore(); return; }
+
+  const fav = e.target.closest("[data-favorite]");
+  if (fav){ e.stopPropagation(); toggleFavorite(fav.dataset.favorite); return; }
+
+  const cartAdd = e.target.closest("[data-cart-add]");
+  if (cartAdd){ e.stopPropagation(); toggleCartItem(cartAdd.dataset.cartAdd); return; }
+
+  const cartRemove = e.target.closest("[data-cart-remove]");
+  if (cartRemove){ e.stopPropagation(); toggleCartItem(cartRemove.dataset.cartRemove); return; }
+
+  const creator = e.target.closest("[data-creator]");
+  if (creator){ e.stopPropagation(); openCreator(creator.dataset.creator); return; }
+
+  const editBtn = e.target.closest("[data-edit]");
+  if (editBtn){ e.stopPropagation(); editListing(editBtn.dataset.edit); return; }
+
+  const deleteBtn = e.target.closest("[data-delete]");
+  if (deleteBtn){ e.stopPropagation(); deleteListing(deleteBtn.dataset.delete); return; }
+
+  const suggestion = e.target.closest("[data-suggest]");
+  if (suggestion){ $("#searchSuggestions").classList.add("hidden"); openProduct(suggestion.dataset.suggest); return; }
+
+  const product = e.target.closest("[data-product]");
+  if (product){ openProduct(product.dataset.product); return; }
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  closeCart();
+  $("#checkoutModal").classList.add("hidden");
+  $("#searchSuggestions").classList.add("hidden");
+});
+
+["categoryFilter","priceFilter","ratingFilter","sortFilter","priceMin","priceMax"].forEach(id => {
+  $("#" + id).addEventListener(id.startsWith("price") && id !== "priceFilter" ? "input" : "change", renderStore);
+});
+$("#searchInput").addEventListener("input", debounce(e => { renderStore(); renderSuggestions(e.target.value.trim()); }, 150));
+$("#searchInput").addEventListener("focus", e => renderSuggestions(e.target.value.trim()));
+$("#searchInput").addEventListener("blur", () => setTimeout(() => $("#searchSuggestions").classList.add("hidden"), 120));
+
+$("#clearFilters").addEventListener("click", () => {
+  $("#searchInput").value = ""; $("#categoryFilter").value = "All"; $("#priceFilter").value = "All";
+  $("#ratingFilter").value = "0"; $("#priceMin").value = ""; $("#priceMax").value = ""; $("#sortFilter").value = "Featured";
+  renderStore();
+  $("#searchSuggestions").classList.add("hidden");
+});
+
+$("#favoritesShortcut").addEventListener("click", () => go("favorites"));
+$("#libraryShortcut").addEventListener("click", () => go("library"));
+$("#sellShortcut").addEventListener("click", () => go("creators"));
+$("#themeToggle").addEventListener("click", () => applyTheme(theme === "dark" ? "light" : "dark"));
+$("#mobileMenu").addEventListener("click", e => {
+  const open = $("#desktopNav").classList.toggle("open");
+  e.currentTarget.setAttribute("aria-expanded", String(open));
+});
+
+$("#cartShortcut").addEventListener("click", openCart);
+$("#closeCart").addEventListener("click", closeCart);
+$("#cartDrawer").addEventListener("click", e => { if (e.target.id === "cartDrawer") closeCart(); });
+$("#cartCheckoutBtn").addEventListener("click", startCheckoutFromCart);
+
+$("#closeModal").addEventListener("click", () => $("#checkoutModal").classList.add("hidden"));
+$("#checkoutModal").addEventListener("click", e => { if (e.target.id === "checkoutModal") $("#checkoutModal").classList.add("hidden"); });
+$("#confirmDemo").addEventListener("click", () => {
+  if (!pendingCheckoutItems.length) return;
+  pendingCheckoutItems.forEach(a => addToLibrary(a.id));
+  cart = cart.filter(id => !pendingCheckoutItems.some(a => a.id === id));
+  write("loikz_cart", cart);
+  renderCartBadge();
+  $("#checkoutModal").classList.add("hidden");
+  toast(pendingCheckoutItems.length > 1 ? "Demo purchase complete — items added to library" : "Demo purchase complete — added to library");
+  pendingCheckoutItems = [];
+  go("library");
+});
+
+$("#cancelEditBtn").addEventListener("click", resetUploadForm);
+$("#uploadForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("#assetName").value.trim();
+  const category = $("#assetCategory").value;
+  const description = $("#assetDescription").value.trim();
+  const price = Math.max(0, Number($("#assetPrice").value) || 0);
+  const image = $("#assetImage").value.trim();
+  const file = $("#assetFile").files[0];
+  const maxSize = 3 * 1024 * 1024;
+
+  if (file && file.size > maxSize){ $("#uploadMessage").textContent = "File is larger than 3 MB. Choose a smaller file for this local demo."; return; }
+  if (!file && !editingId){ $("#uploadMessage").textContent = "Choose a file to publish your listing."; return; }
+
+  const finalize = (fileName, dataUrl) => {
+    if (editingId){
+      const idx = custom.findIndex(x => x.id === editingId);
+      if (idx > -1) custom[idx] = { ...custom[idx], name, category, description, price, image, fileName: fileName || custom[idx].fileName, dataUrl: dataUrl || custom[idx].dataUrl };
+      if (write("loikz_custom", custom)){
+        toast("Listing updated"); resetUploadForm(); renderMyListings(); renderHome(); renderStore();
+      } else { $("#uploadMessage").textContent = "Storage limit reached. Try a smaller file."; }
+    } else {
+      const a = { id: "u" + Date.now(), name, category, description, price, creator: "You", image, fileName, dataUrl, featured: false, createdAt: Date.now(), custom: true };
+      custom.unshift(a);
+      if (write("loikz_custom", custom)){
+        $("#uploadMessage").textContent = "Published! Your asset is now listed in this browser.";
+        $("#uploadForm").reset(); $("#assetPrice").value = "0";
+        renderMyListings(); renderHome(); renderStore();
+        toast("Your asset was published");
+      } else { custom.shift(); $("#uploadMessage").textContent = "Storage limit reached. Try a smaller file or clear browser storage."; }
+    }
+  };
+
+  if (file){ const reader = new FileReader(); reader.onload = () => finalize(file.name, reader.result); reader.readAsDataURL(file); }
+  else finalize(null, null);
+});
+
+init();
+
+</script>
+</body>
+</html>
